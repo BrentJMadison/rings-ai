@@ -59,10 +59,13 @@ export default function CharacterAutocomplete() {
     debouncedSearch(value);
   };
 
-  const handleChange = (_event: React.SyntheticEvent, value: Character | null) => {
-    setSelectedValue(value);
-    if (value) {
+  const handleChange = (_event: React.SyntheticEvent, value: string | Character | null) => {
+    // Only set selected value if it's a Character object (not a string)
+    if (value && typeof value !== 'string') {
+      setSelectedValue(value);
       setInputValue(value.name);
+    } else if (value === null) {
+      setSelectedValue(null);
     }
   };
 
